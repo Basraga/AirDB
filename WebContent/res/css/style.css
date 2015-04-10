@@ -2,19 +2,13 @@ body
 {
 	font-family: "Century Gothic","Calibri","Arial","Verdana";
 	font-size: 20px;
-	background-color: #F5F5F5;
-}
-
-.row
-{
-	padding-right: 50px;
-	padding-left: 50px;
+	background-color: #D4E0F9;
 }
 
 #header
 {
-	height: 250px;
-	background-color: #8BC34A;
+	height: 300px;
+	background-color: #0D47A1;
 	text-align: center;
 }
 
@@ -24,12 +18,13 @@ body
 	color: #FFFFFF;
 }
 
-#tableheader
+.main
 {
-	color: #558B2F;
+	text-align: center;
 }
 
-#updatechecked
+.bManufacturers
 {
-	display: none;
+	font-size: 30px;
+	width: 200px;
 }

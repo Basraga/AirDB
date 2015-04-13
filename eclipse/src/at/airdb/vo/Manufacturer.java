@@ -1,5 +1,9 @@
 package at.airdb.vo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+@XmlRootElement 
 public class Manufacturer {
 
 	private String name;

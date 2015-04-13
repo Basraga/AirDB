@@ -12,17 +12,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import at.airdb.dao.ManufacturerDAO;
+import at.airdb.exceptions.AirDBServiceException;
 import at.airdb.vo.Manufacturer;
 
 @Path("manufacturers")
 public class AirDBService{
 	
 	@GET
-	public List<Manufacturer> getAllManufacturers() throws SQLException{
+	public List<Manufacturer> getAllManufacturers() throws AirDBServiceException{
 		ManufacturerDAO dao = new ManufacturerDAO();
 		try{
 			return dao.getAllManufacturers();
-		} catch (SQLException e){
+		} catch (AirDBServiceException e){
 			System.out.println(e.toString());
 			return null;
 		}

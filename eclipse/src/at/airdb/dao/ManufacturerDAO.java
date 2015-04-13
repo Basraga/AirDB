@@ -25,7 +25,7 @@ public class ManufacturerDAO {
 		}
 		
 		while (!rs.isAfterLast()){
-			Manufacturer manufacturer = new Manufacturer(rs.getString(2), rs.getInt(1));
+			Manufacturer manufacturer = new Manufacturer(rs.getString("name"), rs.getInt("id"));
 			manufacturerList.add(manufacturer);
 			rs.next();
 		}
@@ -37,6 +37,25 @@ public class ManufacturerDAO {
 			throw new AirDBServiceException("ManufacturerDAO.getAllManufacturers() failed: " + e.getMessage());
 		}
  	}
+	
+	
+	public Manufacturer getManufacturerById(int id) throws AirDBServiceException {
+		try{
+			String sql = "Select * from manufacturers where id=" + id;
+			PreparedStatement ps = getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (!rs.first()) {
+				return null;
+			}
+			
+			return new Manufacturer(rs.getString("name"), rs.getInt("id"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AirDBServiceException("ManufacturerDAO.getTaskById(int id) failed: " + e.getMessage());
+		}
+	}
+	
 	
 	private Connection getConnection() throws SQLException {
 		Connection con = null;

@@ -29,4 +29,18 @@ public class AirDBService{
 			return null;
 		}
 	}
+	
+	
+	@GET
+	@Path("/{id}")
+	public Response getTaskById(@PathParam("id") int paramid) {
+		try {
+			ManufacturerDAO DAO = new ManufacturerDAO();
+			Manufacturer manufacturer = DAO.getManufacturerById(paramid);
+			return Response.ok().entity(manufacturer).build();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return Response.status(404).build();
+		}
+	}
 }

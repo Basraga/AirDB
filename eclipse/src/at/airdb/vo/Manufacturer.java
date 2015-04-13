@@ -9,8 +9,6 @@ public class Manufacturer {
 	private String name;
 	private int id;
 	
-	public Manufacturer(){}
-	
 	public Manufacturer(String name, int id){
 		this.name =name;
 		this.id = id;

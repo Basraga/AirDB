@@ -16,7 +16,7 @@ public class ManufacturerDAO {
 		try{
 		List<Manufacturer> manufacturerList = new ArrayList<Manufacturer>();
 		
-		String sql = "Select * from manufacturers";
+		String sql = "SELECT * FROM manufacturers";
 		PreparedStatement ps = getConnection().prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
@@ -43,7 +43,7 @@ public class ManufacturerDAO {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/tasks?user=AirDBuser&password=AirDBuser");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/airdb?user=AirDBuser&password=AirDBuser");
 			return con;
 		}
 		catch(Exception e){

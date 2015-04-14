@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import at.airdb.dao.ManufacturerDAO;
+import at.airdb.dao.TypeDAO;
 import at.airdb.exceptions.AirDBServiceException;
 import at.airdb.vo.Manufacturer;
 import at.airdb.vo.Type;
@@ -34,7 +35,7 @@ public class AirDBService{
 	
 	@GET
 	@Path("/{manufacturerId}")
-	public Response getTaskById(@PathParam("manufacturerId") int manufacturerId) {
+	public Response getManufacturerById(@PathParam("manufacturerId") int manufacturerId) {
 		try {
 			ManufacturerDAO dao = new ManufacturerDAO();
 			Manufacturer manufacturer = dao.getManufacturerById(manufacturerId);
@@ -51,7 +52,7 @@ public class AirDBService{
 	public List<Type> getAllTypes(@PathParam("manufacturerId") int manufacturerId) throws AirDBServiceException{
 		TypeDAO dao = new TypeDAO();
 		try{
-			return dao.getAllTypesFromManufacturer(manufacturerId);
+			return dao.getAllTypesByManufacturerId(manufacturerId);
 		} catch (AirDBServiceException e){
 			System.out.println(e.toString());
 			return null;

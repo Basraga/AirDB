@@ -23,10 +23,9 @@ public class TypeDAO {
 		if (!rs.first()){
 			return typeList;
 		}
-		
-		ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
+
 		while (!rs.isAfterLast()){
-			Type type = new Type(rs.getInt("id"), rs.getString("name"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer")));
+			Type type = new Type(rs.getInt("id"), rs.getString("name"));
 			typeList.add(type);
 			rs.next();
 		}
@@ -42,15 +41,14 @@ public class TypeDAO {
 	
 	public Type getTypeById(int typeId) throws AirDBServiceException {
 		try{
-			String sql = "Select * from type where id=" + typeId;
+			String sql = "Select * from types where id=" + typeId;
 			PreparedStatement ps = getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			if (!rs.first()) {
 				return null;
 			}
 			
-			ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
-			return new Type(rs.getInt("id"), rs.getString("name"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer")));
+			return new Type(rs.getInt("id"), rs.getString("name"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,17 +57,22 @@ public class TypeDAO {
 	}
 	
 	
-	public Type getTypeByManufacturerId(int manufacturerId) throws AirDBServiceException {
+	public List<Type> getAllTypesByManufacturerId(int manufacturerId) throws AirDBServiceException {
 		try{
-			String sql = "Select * from type where manufacturer=" + manufacturerId;
+			List<Type> typeList = new ArrayList<Type>();
+			String sql = "Select * from types where manufacturer=" + manufacturerId;
 			PreparedStatement ps = getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			if (!rs.first()) {
 				return null;
 			}
 			
-			ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
-			return new Type(rs.getInt("id"), rs.getString("name"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer")));
+			while (!rs.isAfterLast()){
+				Type type = new Type(rs.getInt("id"), rs.getString("name"));
+				typeList.add(type);
+				rs.next();
+			}
+			return typeList;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

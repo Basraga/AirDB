@@ -8,7 +8,6 @@ public class Model {
 
 	private int id;
 	private String name;
-	private Type type;
 	private int crew_count;
 	private int seat_count;
 	private double length;
@@ -22,10 +21,9 @@ public class Model {
 	public Model(){}
 	
 
-	public Model(int id, String name, Type type, int crew_count, int seat_count, double length, double weight, double wingspan, double cruisingspeed, double maxspeed, int maxrange, String engines){
+	public Model(int id, String name, int crew_count, int seat_count, double length, double weight, double wingspan, double cruisingspeed, double maxspeed, int maxrange, String engines){
 		this.id = id;
 		this.name =name;
-		this.type = type;
 		this.crew_count =crew_count;
 		this.seat_count = seat_count;
 		this.length = length;
@@ -123,14 +121,6 @@ public class Model {
 
 	public void setEngines(String engines) {
 		this.engines = engines;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
 	}
 	
 }

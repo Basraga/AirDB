@@ -9,14 +9,12 @@ public class Type {
 	
 	private int id;
 	private String name;
-	private Manufacturer manufacturer;
 	
 	public Type(){}
 	
-	public Type(int id, String name, Manufacturer manufacturer){
+	public Type(int id, String name){
 		this.id = id;
 		this.name =name;
-		this.manufacturer = manufacturer;
 	}
 
 	public String getName() {
@@ -33,14 +31,6 @@ public class Type {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 	
 }

@@ -40,9 +40,9 @@ public class TypeDAO {
  	}
 	
 	
-	public Type getTypeById(int id) throws AirDBServiceException {
+	public Type getTypeById(int typeId) throws AirDBServiceException {
 		try{
-			String sql = "Select * from type where id=" + id;
+			String sql = "Select * from type where id=" + typeId;
 			PreparedStatement ps = getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			if (!rs.first()) {
@@ -55,6 +55,25 @@ public class TypeDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AirDBServiceException("TypeDAO.getTypeById(int id) failed: " + e.getMessage());
+		}
+	}
+	
+	
+	public Type getTypeByManufacturerId(int manufacturerId) throws AirDBServiceException {
+		try{
+			String sql = "Select * from type where manufacturer=" + manufacturerId;
+			PreparedStatement ps = getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (!rs.first()) {
+				return null;
+			}
+			
+			ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
+			return new Type(rs.getInt("id"), rs.getString("name"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer")));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AirDBServiceException("TypeDAO.getTypeByManufacturerId(int manufacturerId) failed: " + e.getMessage());
 		}
 	}
 	

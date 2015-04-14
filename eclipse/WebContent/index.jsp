@@ -18,41 +18,28 @@ $(function()
 			
 			
 			var manufacturerID;
+			var manufacturerName;
 			
 			$(document).on("click", ".bManufacturers", function()
 					{
 						var id = $(this).attr("id");
-						manufacturerID = id;
 						var name = $(".bManufacturerID" + id).html();
 						
-						$(".buttonareamanufacturer").slideDown(500);
-						$(".buttonareamanufacturer").fadeOut(500);
-						$(".infobar").slideDown(500);
-						$(".backtypes").slideDown(500);
+						manufacturerID = id;
+						manufacturerName = name;
+						
+						$(".buttonareamanufacturer").fadeOut(350,function(){
+							$(".infobar").slideDown(350);
+							$(".backtypes").slideDown(350, function(){
+								$(".buttonareatype").fadeIn(350);
 
-						$(".infobarcontent").html(name);
-						$(".infobarcontent").css({"display": "inline"});
-						$(".backtypes").css({"display": "inline"});
-						
-						
-						
-						$.ajax({
-							headers:{
-								Accept:'application/json'
-							},
-							type: 'GET',
-							url: 'http://localhost:8080/AirDB/rest/types/'+id,
-							
-							success: function(data)
-							{
-								loadalltypes(id);
-							},
-							
-							error: function(e)
-							{
-								console.log(e);
-							}
+								$(".infobarcontentmanufacturer").html(name);
+								$(".infobarcontentmanufacturer").css({"display": "inline"});
+								$(".backtypes").css({"display": "inline"});
+							});
 						});
+						
+						loadalltypes(id);
 					});
 			
 			$(document).on("click", ".bTypes", function()
@@ -60,14 +47,15 @@ $(function()
 						var id = $(this).attr("id");
 						var name = $(".bTypeID" + id).html();
 
-						$(".buttonareatype").fadeOut(500);
-						$(".infobar").slideDown(500);
-						$(".backmodels").slideDown(500);
+						$(".buttonareatype").fadeOut(500, function() {
+							$(".backtypes").slideUp(0);
+							$(".backmodels").slideDown(0);
+							$(".infobarcontentmanufacturers").slideUp(0);
 
-						$(".infobarcontent").html(name);
-						$(".infobarcontent").css({"display": "inline"});
-						$(".backmodels").css({"display": "inline"});
-						
+							$(".infobarcontenttype").html(manufacturerName + " " + name);
+							$(".infobarcontenttype").css({"display": "inline"});
+							$(".backmodels").css({"display": "inline"});
+						});
 						
 						
 						$.ajax({
@@ -93,13 +81,14 @@ $(function()
 					{
 						$(".infobar").slideUp(500);
 						$(".backtypes").slideUp(500);
+						$(".buttonareatype").fadeOut(500);
 						$(".buttonareamanufacturer").fadeIn(500);
 					});
 			
 			$(document).on("click", ".backmodels", function()
 					{
-						$(".infobar").slideUp(500);
-						$(".backmodels").slideUp(500);
+						$(".backmodels").slideUp(0);
+						$(".backtypes").slideDown(0);
 						$(".buttonareatype").fadeIn(500);
 					});
 		}
@@ -221,7 +210,8 @@ function loadallmodels(manufacturerID, typeID)
 	</div>
 	<div class="col-md-6">	
 		<div class="infobar">
-			<div class="infobarcontent"></dic>
+			<div class="infobarcontentmanufacturer infobarcontent"></div>
+			<div class="infobarcontenttype infobarcontent"></div>
 		</div>
 	</div>
 	<div class="col-md-3"></div>

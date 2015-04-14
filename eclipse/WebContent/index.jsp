@@ -9,8 +9,196 @@
 <link href="./res/css/bootstrap.css" rel="stylesheet">
 <link href="./res/css/style.css" rel="stylesheet">
 <script type="text/javascript" src="./res/js/bootstrap.js"></script>
-<script type="text/javascript">
 
+<script type="text/javascript">
+  
+$(function()
+		{
+			loadallmanufacturers();	
+			
+			
+			var manufacturerID;
+			
+			$(document).on("click", ".bManufacturers", function()
+					{
+						var id = $(this).attr("id");
+						manufacturerID = id;
+						var name = $(".bManufacturerID" + id).html();
+						
+						$(".buttonareamanufacturer").slideDown(500);
+						$(".buttonareamanufacturer").fadeOut(500);
+						$(".infobar").slideDown(500);
+						$(".backtypes").slideDown(500);
+
+						$(".infobarcontent").html(name);
+						$(".infobarcontent").css({"display": "inline"});
+						$(".backtypes").css({"display": "inline"});
+						
+						
+						
+						$.ajax({
+							headers:{
+								Accept:'application/json'
+							},
+							type: 'GET',
+							url: 'http://localhost:8080/AirDB/rest/types/'+id,
+							
+							success: function(data)
+							{
+								loadalltypes(id);
+							},
+							
+							error: function(e)
+							{
+								console.log(e);
+							}
+						});
+					});
+			
+			$(document).on("click", ".bTypes", function()
+					{
+						var id = $(this).attr("id");
+						var name = $(".bTypeID" + id).html();
+
+						$(".buttonareatype").fadeOut(500);
+						$(".infobar").slideDown(500);
+						$(".backmodels").slideDown(500);
+
+						$(".infobarcontent").html(name);
+						$(".infobarcontent").css({"display": "inline"});
+						$(".backmodels").css({"display": "inline"});
+						
+						
+						
+						$.ajax({
+							headers:{
+								Accept:'application/json'
+							},
+							type: 'GET',
+							url: 'http://localhost:8080/AirDB/rest/types/'+id,
+							
+							success: function(data)
+							{
+								loadallmodels(manufacturerID,id);
+							},
+							
+							error: function(e)
+							{
+								console.log(e);
+							}
+						});
+					});
+			
+			$(document).on("click", ".backtypes", function()
+					{
+						$(".infobar").slideUp(500);
+						$(".backtypes").slideUp(500);
+						$(".buttonareamanufacturer").fadeIn(500);
+					});
+			
+			$(document).on("click", ".backmodels", function()
+					{
+						$(".infobar").slideUp(500);
+						$(".backmodels").slideUp(500);
+						$(".buttonareatype").fadeIn(500);
+					});
+		}
+)
+
+function loadallmanufacturers()
+{
+	$.ajax({
+		headers:{
+			Accept:'application/json'
+		},
+		type: 'GET',
+		url: 'http://localhost:8080/AirDB/rest/manufacturers',
+		
+		success: function(data)
+		{
+			//var data = {"Manufacturer": [{"id":"1","name":"Boeing"},{"id":"2","name":"Bombardier"},{"id":"3","name":"Embraer"},{"id":"4","name":"Airbus"},{"id":"5","name":"ATR"},{"id":"6","name":"Douglas"},{"id":"7","name":"McDonnell Douglas"},{"id":"8","name":"Lockheed"},{"id":"9","name":"Antonov"},{"id":"10","name":"Tupolev"}]};
+			
+			var code = "";
+			code = "<div class='row-fluid'><div class='span12'>";
+			
+			for (i=0; i<data.manufacturer.length;i++)
+			{
+				code = code + "<button type='button' class='btn btn-primary bManufacturers bManufacturerID"+data.manufacturer[i].id+"' id='"+data.manufacturer[i].id+"''>"+data.manufacturer[i].name+"</button>";	
+			}
+			
+			code = code + "</div></div>";
+			
+			$(".buttonareamanufacturer").html(code);
+		},
+		
+		error: function(e)
+		{
+			console.log(e);
+		}
+	});
+}
+
+function loadalltypes(id)
+{
+	$.ajax({
+		headers:{
+			Accept:'application/json'
+		},
+		type: 'GET',
+		url: 'http://localhost:8080/AirDB/rest/manufacturers/'+id+'/types',
+		
+		success: function(data)
+		{
+			var code = "";
+			code = "<div class='row-fluid'><div class='span12'>";
+			
+			for (i=0; i<data.type.length;i++)
+			{
+				code = code + "<button type='button' class='btn btn-primary bTypes bTypeID"+data.type[i].id+"' id='"+data.type[i].id+"''>"+data.type[i].name+"</button>";	
+			}
+			
+			code = code + "</div></div>";
+			
+			$(".buttonareatype").html(code);
+		},
+		
+		error: function(e)
+		{
+			console.log(e);
+		}
+	});
+}
+	
+function loadallmodels(manufacturerID, typeID)
+{
+	$.ajax({
+		headers:{
+			Accept:'application/json'
+		},
+		type: 'GET',
+		url: 'http://localhost:8080/AirDB/rest/manufacturers/'+id+'/types',
+		
+		success: function(data)
+		{
+			var code = "";
+			code = "<div class='row-fluid'><div class='span12'>";
+			
+			for (i=0; i<data.type.length;i++)
+			{
+				code = code + "<button type='button' class='btn btn-primary bTypes bTypeID"+data.type[i].id+"' id='"+data.type[i].id+"''>"+data.type[i].name+"</button>";	
+			}
+			
+			code = code + "</div></div>";
+				
+			$(".buttonareatype").html(code);
+		},
+			
+		error: function(e)
+		{
+			console.log(e);
+		}
+	});
+}
 
 </script>
 
@@ -18,28 +206,35 @@
 </head>
 
 <body>
-
 <div id="header">
 	</br>
 	</br>
-	</br>
-	</br>
-	<div id="header-text"><b>AirDB</b></div>
+	<img src="./res/img/Logo.png" alt="AirDB" width="1105" height="200">
 </div>
 
-<div class="row"></br></div>
-
-<div class="row main">
-	<div class="col-md-2"></div>
-	
-	<!-- Provisorisch - später über REST -->
-	<div class="col-md-2"><button type="button" class="btn btn-primary bManufacturers">Boeing</button></div>
-	<div class="col-md-2"><button type="button" class="btn btn-primary bManufacturers">Bombardier</button></div>
-	<div class="col-md-2"><button type="button" class="btn btn-primary bManufacturers">Embraer</button></div>
-	<div class="col-md-2"><button type="button" class="btn btn-primary bManufacturers">Airbus</button></div>
-	
-	<div class="col-md-2"></div>
+<div class="row infobarrow">
+	<div class="col-md-3">
+		<div class="backdiv">
+			<button type='button' class='btn btn-default back backtypes'><span class="glyphicon glyphicon-arrow-left backarrow" aria-hidden="true"> </span>back</button>
+			<button type='button' class='btn btn-default back backmodels'><span class="glyphicon glyphicon-arrow-left backarrow" aria-hidden="true"> </span>back</button>
+		</div>
+	</div>
+	<div class="col-md-6">	
+		<div class="infobar">
+			<div class="infobarcontent"></dic>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
 </div>
+
+<div class="container-fluid">
+	<div class="row"></br></div>
 	
+	<div class="buttonareamanufacturer contentarea"></div>
+	<div class="buttonareatype contentarea"></div>
+	<div class="modeldataarea contentarea"></div>
+	
+</div>
+
 </body>
 </html>

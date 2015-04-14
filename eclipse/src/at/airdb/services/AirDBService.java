@@ -60,6 +60,7 @@ public class AirDBService{
 	
 	@GET
 	@Path("/{manufacturerId}/types/{typeId}")
+	public Response getTypeById(@PathParam("manufacturerId") int manufacturerId, @PathParam("typeId") int typeId){
 		try{
 			TypeDAO dao = new TypeDAO();
 			Type type = dao.getTypeById(typeId);

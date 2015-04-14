@@ -52,7 +52,7 @@ public class TypeDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new AirDBServiceException("TypeDAO.getTypeById(int id) failed: " + e.getMessage());
+			throw new AirDBServiceException("TypeDAO.getTypeById(int typeId) failed: " + e.getMessage());
 		}
 	}
 	

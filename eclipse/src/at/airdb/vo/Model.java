@@ -6,8 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement 
 public class Model {
 
-	private String name;
 	private int id;
+	private String name;
+	private Type type;
 	private int crew_count;
 	private int seat_count;
 	private double length;
@@ -17,14 +18,14 @@ public class Model {
 	private double maxspeed;
 	private int maxrange;
 	private String engines;
-	private Type type;
-	
 	
 	public Model(){}
 	
-	public Model(String name, int id, int crew_count, int seat_count, double length, double weight, double wingspan, double cruisingspeed, double maxspeed, int maxrange, String engines, Type type){
-		this.name =name;
+
+	public Model(int id, String name, Type type, int crew_count, int seat_count, double length, double weight, double wingspan, double cruisingspeed, double maxspeed, int maxrange, String engines){
 		this.id = id;
+		this.name =name;
+		this.type = type;
 		this.crew_count =crew_count;
 		this.seat_count = seat_count;
 		this.length = length;
@@ -34,7 +35,6 @@ public class Model {
 		this.maxspeed = maxspeed;
 		this.maxrange = maxrange;
 		this.engines = engines;
-		this.type = type;
 	}
 
 	public String getName() {

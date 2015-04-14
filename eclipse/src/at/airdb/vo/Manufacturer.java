@@ -5,13 +5,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement 
 public class Manufacturer {
-
-	private String name;
-	private int id;
 	
-	public Manufacturer(String name, int id){
-		this.name =name;
+	private int id;
+	private String name;
+	
+	public Manufacturer(){}
+	
+	public Manufacturer(int id, String name){
 		this.id = id;
+		this.name = name;
 	}
 
 	public String getName() {

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.airdb.exceptions.AirDBServiceException;
-import at.airdb.vo.Manufacturer;
 import at.airdb.vo.Type;
 
 public class TypeDAO {
@@ -27,7 +26,7 @@ public class TypeDAO {
 		
 		ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
 		while (!rs.isAfterLast()){
-			Type type = new Type(rs.getString("name"), rs.getInt("id"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer"))); //use right column in right spot
+			Type type = new Type(rs.getInt("id"), rs.getString("name"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer")));
 			typeList.add(type);
 			rs.next();
 		}
@@ -39,6 +38,26 @@ public class TypeDAO {
 			throw new AirDBServiceException("TypeDAO.getAllTypes() failed: " + e.getMessage());
 		}
  	}
+	
+	
+	public Type getTypeById(int id) throws AirDBServiceException {
+		try{
+			String sql = "Select * from type where id=" + id;
+			PreparedStatement ps = getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (!rs.first()) {
+				return null;
+			}
+			
+			ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
+			return new Type(rs.getInt("id"), rs.getString("name"), manufacturerDAO.getManufacturerById(rs.getInt("manufacturer")));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AirDBServiceException("TypeDAO.getTypeById(int id) failed: " + e.getMessage());
+		}
+	}
+	
 	
 	private Connection getConnection() throws SQLException {
 		Connection con = null;

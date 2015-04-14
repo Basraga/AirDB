@@ -6,15 +6,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement 
 public class Type {
 
-	private String name;
+	
 	private int id;
+	private String name;
 	private Manufacturer manufacturer;
 	
 	public Type(){}
 	
-	public Type(String name, int id, Manufacturer manufacturer){
-		this.name =name;
+	public Type(int id, String name, Manufacturer manufacturer){
 		this.id = id;
+		this.name =name;
 		this.manufacturer = manufacturer;
 	}
 

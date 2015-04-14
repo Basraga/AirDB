@@ -25,7 +25,7 @@ public class ManufacturerDAO {
 		}
 		
 		while (!rs.isAfterLast()){
-			Manufacturer manufacturer = new Manufacturer(rs.getString("name"), rs.getInt("id"));
+			Manufacturer manufacturer = new Manufacturer(rs.getInt("id"), (rs.getString("name")));
 			manufacturerList.add(manufacturer);
 			rs.next();
 		}
@@ -48,11 +48,11 @@ public class ManufacturerDAO {
 				return null;
 			}
 			
-			return new Manufacturer(rs.getString("name"), rs.getInt("id"));
+			return new Manufacturer(rs.getInt("id"), rs.getString("name"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new AirDBServiceException("ManufacturerDAO.getTaskById(int id) failed: " + e.getMessage());
+			throw new AirDBServiceException("ManufacturerDAO.getTypeById(int id) failed: " + e.getMessage());
 		}
 	}
 	

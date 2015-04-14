@@ -16,9 +16,9 @@ import at.airdb.dao.ManufacturerDAO;
 import at.airdb.exceptions.AirDBServiceException;
 import at.airdb.vo.Manufacturer;
 
-@Path("manufacturers")
+@Path("manufacturers")	
 public class AirDBService{
-	
+
 	@GET
 	public List<Manufacturer> getAllManufacturers() throws AirDBServiceException{
 		ManufacturerDAO dao = new ManufacturerDAO();

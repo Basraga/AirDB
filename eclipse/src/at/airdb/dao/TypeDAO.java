@@ -39,7 +39,7 @@ public class TypeDAO {
  	}
 	
 	
-	public Type getTypeById(int typeId) throws AirDBServiceException {
+	public Type getTypeByTypeId(int typeId) throws AirDBServiceException {
 		try{
 			String sql = "Select * from types where id=" + typeId;
 			PreparedStatement ps = getConnection().prepareStatement(sql);

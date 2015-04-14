@@ -39,9 +39,9 @@ public class ManufacturerDAO {
  	}
 	
 	
-	public Manufacturer getManufacturerById(int id) throws AirDBServiceException {
+	public Manufacturer getManufacturerByManufacturerId(int manufacturerId) throws AirDBServiceException {
 		try{
-			String sql = "Select * from manufacturers where id=" + id;
+			String sql = "Select * from manufacturers where id=" + manufacturerId;
 			PreparedStatement ps = getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			if (!rs.first()) {

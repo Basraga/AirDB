@@ -40,7 +40,7 @@ public class ModelDAO {
  	}
 	
 	
-	public Model getModelById(int modelId) throws AirDBServiceException {
+	public Model getModelByModelId(int modelId) throws AirDBServiceException {
 		try{
 			String sql = "Select * from models where id=" + modelId;
 			PreparedStatement ps = getConnection().prepareStatement(sql);

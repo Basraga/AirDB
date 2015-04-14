@@ -25,9 +25,9 @@ public class AirDBService{
 
 	@GET
 	public List<Manufacturer> getAllManufacturers() throws AirDBServiceException{
-		ManufacturerDAO dao = new ManufacturerDAO();
+		ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
 		try{
-			return dao.getAllManufacturers();
+			return manufacturerDAO.getAllManufacturers();
 		} catch (AirDBServiceException e){
 			System.out.println(e.toString());
 			return null;
@@ -37,10 +37,10 @@ public class AirDBService{
 	
 	@GET
 	@Path("/{manufacturerId}")
-	public Response getManufacturerById(@PathParam("manufacturerId") int manufacturerId) {
+	public Response getManufacturerByManufacturerId(@PathParam("manufacturerId") int manufacturerId) {
 		try {
-			ManufacturerDAO dao = new ManufacturerDAO();
-			Manufacturer manufacturer = dao.getManufacturerById(manufacturerId);
+			ManufacturerDAO manufacturerDAO = new ManufacturerDAO();
+			Manufacturer manufacturer = manufacturerDAO.getManufacturerByManufacturerId(manufacturerId);
 			return Response.ok().entity(manufacturer).build();
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -52,9 +52,9 @@ public class AirDBService{
 	@GET
 	@Path("/{manufacturerId}/types")
 	public List<Type> getAllTypesByManufacturerId(@PathParam("manufacturerId") int manufacturerId) throws AirDBServiceException{
-		TypeDAO dao = new TypeDAO();
+		TypeDAO typeDAO = new TypeDAO();
 		try{
-			return dao.getAllTypesByManufacturerId(manufacturerId);
+			return typeDAO.getAllTypesByManufacturerId(manufacturerId);
 		} catch (AirDBServiceException e){
 			System.out.println(e.toString());
 			return null;
@@ -65,8 +65,8 @@ public class AirDBService{
 	@Path("/{manufacturerId}/types/{typeId}/models")
 	public List<Model> getAllModelsByTypeId(@PathParam("typeId") int typeId) throws AirDBServiceException{
 		try{
-			ModelDAO dao = new ModelDAO();
-			return dao.getAllModelsByTypeId(typeId);
+			ModelDAO modelDAO = new ModelDAO();
+			return modelDAO.getAllModelsByTypeId(typeId);
 		} catch (AirDBServiceException e){
 			System.out.println(e.toString());
 			return null;
@@ -77,13 +77,26 @@ public class AirDBService{
 	@Path("/{manufacturerId}/types/{typeId}/models/{modelId}")
 	public Response getModelByModelId(@PathParam("modelId") int modelId) {
 		try {
-			ModelDAO dao = new ModelDAO();
-			Model model = dao.getModelByModelId(modelId);
+			ModelDAO modelDAO = new ModelDAO();
+			Model model = modelDAO.getModelByModelId(modelId);
 			return Response.ok().entity(model).build();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return Response.status(404).build();
 		}
-	} 
+	}
 	
+	
+	@GET
+	@Path("/{manufacturerId}/types/{typeId}")
+	public Response getTypeByTypeId(@PathParam("typeId") int typeId) {
+		try {
+			TypeDAO typeDAO = new TypeDAO();
+			Type type = typeDAO.getTypeByTypeId(typeId);
+			return Response.ok().entity(type).build();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return Response.status(404).build();
+		}
+	}
 }

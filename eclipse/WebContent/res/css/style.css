@@ -55,15 +55,7 @@ body
 	text-align: center;
 }
 
-.infobarcontentmanufacturer
-{
-	display: none;
-	text-align: center;
-	font-size: 40px;
-	color: #FFFFFF;
-}
-
-.infobarcontenttype
+.infobarcontent
 {
 	display: none;
 	text-align: center;
@@ -106,4 +98,15 @@ body
 .backarrow
 {
 	margin-right: 10px;
+}
+
+th
+{
+	text-align: center;
+}
+
+.tablerowlabel
+{
+	font-weight: bold;
+	text-align: right;
 }

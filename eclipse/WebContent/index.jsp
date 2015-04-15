@@ -33,8 +33,8 @@ $(function()
 							$(".backtypes").slideDown(350, function(){
 								$(".buttonareatype").fadeIn(350);
 
-								$(".infobarcontentmanufacturer").html(name);
-								$(".infobarcontentmanufacturer").css({"display": "inline"});
+								$(".infobarcontent").html(name);
+								$(".infobarcontent").css({"display": "inline"});
 								$(".backtypes").css({"display": "inline"});
 							});
 						});
@@ -47,49 +47,38 @@ $(function()
 						var id = $(this).attr("id");
 						var name = $(".bTypeID" + id).html();
 
-						$(".buttonareatype").fadeOut(500, function() {
+						$(".buttonareatype").fadeOut(350, function() {
 							$(".backtypes").slideUp(0);
 							$(".backmodels").slideDown(0);
-							$(".infobarcontentmanufacturers").slideUp(0);
+							$(".infobarcontent").slideUp(0);
+							$(".modeldataarea").fadeIn(350);
 
-							$(".infobarcontenttype").html(manufacturerName + " " + name);
-							$(".infobarcontenttype").css({"display": "inline"});
+							$(".infobarcontent").html(manufacturerName + " " + name);
+							$(".infobarcontent").css({"display": "inline"});
 							$(".backmodels").css({"display": "inline"});
 						});
 						
-						
-						$.ajax({
-							headers:{
-								Accept:'application/json'
-							},
-							type: 'GET',
-							url: 'http://localhost:8080/AirDB/rest/types/'+id,
-							
-							success: function(data)
-							{
-								loadallmodels(manufacturerID,id);
-							},
-							
-							error: function(e)
-							{
-								console.log(e);
-							}
-						});
+						loadallmodels(manufacturerID,id);
+
 					});
 			
 			$(document).on("click", ".backtypes", function()
 					{
-						$(".infobar").slideUp(500);
-						$(".backtypes").slideUp(500);
-						$(".buttonareatype").fadeOut(500);
-						$(".buttonareamanufacturer").fadeIn(500);
+						$(".infobar").slideUp(350);
+						$(".backtypes").slideUp(350);
+						$(".buttonareatype").fadeOut(350, function(){
+							$(".buttonareamanufacturer").fadeIn(350);
+						});
 					});
 			
 			$(document).on("click", ".backmodels", function()
 					{
 						$(".backmodels").slideUp(0);
 						$(".backtypes").slideDown(0);
-						$(".buttonareatype").fadeIn(500);
+						$(".modeldataarea").fadeOut(350, function(){
+							$(".buttonareatype").fadeIn(350);
+							$(".infobarcontent").html(manufacturerName);
+						});
 					});
 		}
 )
@@ -165,21 +154,36 @@ function loadallmodels(manufacturerID, typeID)
 			Accept:'application/json'
 		},
 		type: 'GET',
-		url: 'http://localhost:8080/AirDB/rest/manufacturers/'+id+'/types',
+		url: 'http://localhost:8080/AirDB/rest/manufacturers/'+manufacturerID+'/types/'+typeID+'/models',
 		
 		success: function(data)
 		{
-			var code = "";
-			code = "<div class='row-fluid'><div class='span12'>";
+			var codedata = "<tbody>";
+			var codehead = "<thead><tr><th></th>";
+			var label = {"label": [{"name":"Length [m]","dbname":"length"},{"name":"Wingspan [m]","dbname":"wingspan"},{"name":"Height [m]","dbname":"height"},{"name":"Typical Seating","dbname":"seat_count"},{"name":"Cockpit Crew","dbname":"crew_count"},{"name":"Cruising Speed [km/h]","dbname":"cruisingspeed"},{"name":"Range [km]","dbname":"maxrange"},{"name":"Engines","dbname":"engines"}]};
 			
-			for (i=0; i<data.type.length;i++)
+			for (i=0; i<data.model.length;i++)
 			{
-				code = code + "<button type='button' class='btn btn-primary bTypes bTypeID"+data.type[i].id+"' id='"+data.type[i].id+"''>"+data.type[i].name+"</button>";	
+				codehead = codehead + "<th class='datatablecontent'>"+data.model[i].name+"</th>";
 			}
 			
-			code = code + "</div></div>";
+			for (i=0; i<label.label.length;i++)
+			{
+				codedata = codedata + "<tr><td class='tablerowlabel'>"+label.label[i].name+"</td>";
 				
-			$(".buttonareatype").html(code);
+				for(j=0; j<data.model.length;j++)
+				{
+					codedata = codedata + "<td>" + data.model[j][label.label[i].dbname] + "</td>";
+				}
+				
+				codedata = codedata + "</tr>";
+			}
+			
+			codehead = codehead + "</tr></thead>";
+			codedata = codedata + "</tbody>";
+			var code = codehead + codedata;
+				
+			$(".modeltable").html(code);
 		},
 			
 		error: function(e)
@@ -210,8 +214,7 @@ function loadallmodels(manufacturerID, typeID)
 	</div>
 	<div class="col-md-6">	
 		<div class="infobar">
-			<div class="infobarcontentmanufacturer infobarcontent"></div>
-			<div class="infobarcontenttype infobarcontent"></div>
+			<div class="infobarcontent"></div>
 		</div>
 	</div>
 	<div class="col-md-3"></div>
@@ -222,7 +225,12 @@ function loadallmodels(manufacturerID, typeID)
 	
 	<div class="buttonareamanufacturer contentarea"></div>
 	<div class="buttonareatype contentarea"></div>
-	<div class="modeldataarea contentarea"></div>
+	
+	<div class="modeldataarea contentarea">
+		<table class="table table-hover modeltable">
+		
+		</table>
+	</div>
 	
 </div>
 

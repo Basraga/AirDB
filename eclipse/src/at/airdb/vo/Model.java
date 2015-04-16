@@ -11,7 +11,7 @@ public class Model {
 	private int crew_count;
 	private int seat_count;
 	private double length;
-	private double weight;
+	private double height;
 	private double wingspan;
 	private double cruisingspeed;
 	private double maxspeed;
@@ -21,13 +21,13 @@ public class Model {
 	public Model(){}
 	
 
-	public Model(int id, String name, int crew_count, int seat_count, double length, double weight, double wingspan, double cruisingspeed, double maxspeed, int maxrange, String engines){
+	public Model(int id, String name, int crew_count, int seat_count, double length, double height, double wingspan, double cruisingspeed, double maxspeed, int maxrange, String engines){
 		this.id = id;
 		this.name =name;
 		this.crew_count =crew_count;
 		this.seat_count = seat_count;
 		this.length = length;
-		this.weight = length;
+		this.height = height;
 		this.wingspan = wingspan;
 		this.cruisingspeed = cruisingspeed;
 		this.maxspeed = maxspeed;
@@ -75,12 +75,12 @@ public class Model {
 		this.length = length;
 	}
 
-	public double getWeight() {
-		return weight;
+	public double getHeight() {
+		return height;
 	}
 
-	public void setWeight(double weight) {
-		this.weight = weight;
+	public void setHeight(double height) {
+		this.height = height;
 	}
 
 	public double getWingspan() {

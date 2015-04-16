@@ -8,6 +8,7 @@
 <script src="./res/js/jquery-1.11.1.js"></script>
 <link href="./res/css/bootstrap.css" rel="stylesheet">
 <link href="./res/css/style.css" rel="stylesheet">
+<link rel="icon" href="./res/img/favicon.ico" type="image/x-icon"/>
 <script type="text/javascript" src="./res/js/bootstrap.js"></script>
 
 <script type="text/javascript">

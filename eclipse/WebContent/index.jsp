@@ -30,6 +30,7 @@ $(function()
 						manufacturerName = name;
 						
 						$(".buttonareamanufacturer").fadeOut(350,function(){
+							$(".infobarcontent").html("");
 							$(".infobar").slideDown(350);
 							$(".backtypes").slideDown(350, function(){
 								$(".buttonareatype").fadeIn(350);

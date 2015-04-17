@@ -9,8 +9,8 @@
 <link href="./res/css/bootstrap.css" rel="stylesheet">
 <link href="./res/css/style.css" rel="stylesheet">
 <link rel="icon" href="./res/img/favicon.ico" type="image/x-icon"/>
-<script type="text/javascript" src="./res/js/bootstrap.js"></script>
 
+<script type="text/javascript" src="./res/js/bootstrap.js"></script>
 <script type="text/javascript">
   
 $(function()
@@ -162,7 +162,7 @@ function loadallmodels(manufacturerID, typeID)
 		{
 			var codedata = "<tbody>";
 			var codehead = "<thead><tr><th></th>";
-			var label = {"label": [{"name":"Length [m]","dbname":"length"},{"name":"Wingspan [m]","dbname":"wingspan"},{"name":"Height [m]","dbname":"height"},{"name":"Typical Seating","dbname":"seat_count"},{"name":"Cockpit Crew","dbname":"crew_count"},{"name":"Cruising Speed [km/h]","dbname":"cruisingspeed"},{"name":"Range [km]","dbname":"maxrange"},{"name":"Engines","dbname":"engines"}]};
+			var label = {"label": [{"name":"Length [m]","dbname":"length"},{"name":"Wingspan [m]","dbname":"wingspan"},{"name":"Height [m]","dbname":"height"},{"name":"Passengers","dbname":"seat_count"},{"name":"Cockpit Crew","dbname":"crew_count"},{"name":"Cruising Speed [km/h]","dbname":"cruisingspeed"},{"name":"Range [km]","dbname":"maxrange"},{"name":"Engines","dbname":"engines"}]};
 			
 			for (i=0; i<data.model.length;i++)
 			{
@@ -214,6 +214,7 @@ function loadallmodels(manufacturerID, typeID)
 			<button type='button' class='btn btn-default back backmodels'><span class="glyphicon glyphicon-arrow-left backarrow" aria-hidden="true"> </span>back</button>
 		</div>
 	</div>
+	
 	<div class="col-md-6">	
 		<div class="infobar">
 			<div class="infobarcontent"></div>
